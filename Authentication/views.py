@@ -18,11 +18,16 @@ class Login(APIView):
         if user is not None:
             return HttpResponse(requests.post(SITE_URL + 'auth/token/',
                             json={
-                                "username": username,
+                                "username": user.username,
                                 "password": password
                             }
                             ), content_type='application/json')
-        return HttpResponse(requests.post(SITE_URL + 'auth/token/'), content_type='application/json')
+        return HttpResponse(requests.post(SITE_URL + 'auth/token/',
+                                          json={
+                                              "username": username,
+                                              "password": password
+                                          }
+                                          ), content_type='application/json')
 
 
 class Register(APIView):
