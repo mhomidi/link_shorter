@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from pip._vendor import requests
 from rest_framework.views import APIView
 
-from Authentication.utils import my_validate_email
+from authentication.utils import my_validate_email
 from LinkShorter.settings import SITE_URL
 
 
