@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'short_url',
     'authentication',
+    'analytics',
+    'django_user_agents',
 
 ]
 
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'LinkShorter.urls'
@@ -162,3 +165,26 @@ SIMPLE_JWT = {
 }
 
 SITE_URL = 'http://localhost:8000/'
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'Asia/Tehran'
+
+USE_I18N = False
+
+USE_L10N = False
+
+USE_TZ = True
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
+
+CACHE_TTL = 60 * 15

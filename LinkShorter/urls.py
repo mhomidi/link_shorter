@@ -14,13 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
 
+from LinkShorter import settings
 from short_url.views import Redirect
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
     path('url/', include('short_url.urls')),
-    path('<slug:short_link>', Redirect.as_view()),
+    path('info/', include('analytics.urls')),
+    path('<slug:short_link>', cache_page(CACHE_TTL)(Redirect.as_view())),s
 ]
